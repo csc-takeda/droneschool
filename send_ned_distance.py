@@ -78,6 +78,26 @@ def modify_speed(distance_x, distance_y, distance_z, max_speed):
     print("modify_speed", mod_velocity_x, mod_velocity_y, mod_velocity_z, mod_duration)
     return mod_velocity_x, mod_velocity_y, mod_velocity_z, mod_duration
 
+def send_flare(velocity_x, velocity_y, velocity_z, duration=0.1):
+    """
+    フレア操作を実施する。
+    """
+    msg = vehicle.message_factory.set_position_target_local_ned_encode(
+        0,       # time_boot_ms (not used)
+        0, 0,    # target system, target component
+        mavutil.mavlink.MAV_FRAME_LOCAL_NED, # frame
+        0b0000111111000111, # type_mask (only speeds enabled)
+        0, 0, 0, # x, y, z positions (not used)
+        velocity_x * -1, velocity_y * -1, velocity_z * -1, # x, y, z velocity in m/s
+        0, 0, 0, # x, y, z acceleration (not supported yet, ignored in GCS_Mavlink)
+        0, 0)    # yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink)
+
+    i_duration = int(round(duration,1) * 10)
+    # send command to vehicle on 1 Hz cycle
+    for x in range(0,i_duration):
+        vehicle.send_mavlink(msg)
+        time.sleep(0.1)
+
 def send_ned_distance(distance_x, distance_y, distance_z, duration=1, max_speed=1):
     """
     X,Y,Z方向の距離を指定して、飛行させる。
@@ -115,11 +135,21 @@ def send_ned_distance(distance_x, distance_y, distance_z, duration=1, max_speed=
         vehicle.send_mavlink(msg)
         time.sleep(0.1)
 
-def get_goto_distance(startLocation):
+    # フレア操作
+    send_flare(velocity_x, velocity_y, velocity_z)
 
-    while vehicle.groundspeed >= 0.03: #Stop action if we are no longer in guided mode.
+def waitHovering():
+    """
+    ホバリング状態になるのを待つ。
+    """
+    while max(vehicle.velocity) >= 0.03:
         time.sleep(0.1)
         print("Groundspeed: %s" % vehicle.groundspeed)
+        print("Velocityspeed: %s" % vehicle.velocity)
+
+def get_goto_distance(startLocation):
+
+    waitHovering()
     
     currentLocation=vehicle.location.global_relative_frame
     targetDistance=get_distance_metres(startLocation, currentLocation)
