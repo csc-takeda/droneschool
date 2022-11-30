@@ -82,13 +82,15 @@ def send_flare(velocity_x, velocity_y, velocity_z, duration=0.1):
     """
     フレア操作を実施する。
     """
+    rate_flare = 0.1
+    time_flare = 0.01
     msg = vehicle.message_factory.set_position_target_local_ned_encode(
         0,       # time_boot_ms (not used)
         0, 0,    # target system, target component
         mavutil.mavlink.MAV_FRAME_LOCAL_NED, # frame
         0b0000111111000111, # type_mask (only speeds enabled)
         0, 0, 0, # x, y, z positions (not used)
-        velocity_x * -1, velocity_y * -1, velocity_z * -1, # x, y, z velocity in m/s
+        velocity_x * -1 * rate_flare, velocity_y * -1 * rate_flare, velocity_z * -1 * rate_flare, # x, y, z velocity in m/s
         0, 0, 0, # x, y, z acceleration (not supported yet, ignored in GCS_Mavlink)
         0, 0)    # yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink)
 
@@ -96,7 +98,8 @@ def send_flare(velocity_x, velocity_y, velocity_z, duration=0.1):
     # send command to vehicle on 1 Hz cycle
     for x in range(0,i_duration):
         vehicle.send_mavlink(msg)
-        time.sleep(0.1)
+        time.sleep(time_flare)
+    time.sleep(1)
 
 def send_ned_distance(distance_x, distance_y, distance_z, duration=1, max_speed=1):
     """
@@ -144,8 +147,8 @@ def waitHovering():
     """
     while max(vehicle.velocity) >= 0.03:
         time.sleep(0.1)
-        print("Groundspeed: %s" % vehicle.groundspeed)
-        print("Velocityspeed: %s" % vehicle.velocity)
+        #print("Groundspeed: %s" % vehicle.groundspeed)
+        #print("Velocityspeed: %s" % vehicle.velocity)
 
 def get_goto_distance(startLocation):
 
@@ -164,7 +167,7 @@ def print_state_velocity(msgStr):
     print(" Is Armable?: %s" % vehicle.is_armable )
     print(" System status: %s" % vehicle.system_status.state )
     print(" Mode: %s" % vehicle.mode.name )
-
+    print("------------------------------")
 # MAIN
 connection_string = 'tcp:127.0.0.1:5762'
 takeoff_alt = 2
@@ -187,7 +190,7 @@ while True:
      break 
     time.sleep(1) 
 
-# This is the command to move the copter 5 m/s forward for 10 sec.
+# 5m 先進
 print_state_velocity("STAET")
 startLocation=vehicle.location.global_relative_frame
 velocity_x = 5
@@ -198,7 +201,40 @@ send_ned_distance(velocity_x, velocity_y, velocity_z, duration)
 get_goto_distance(startLocation)
 print_state_velocity("END")
 
-# backwards at 5 m/s for 10 sec.
+# 5m 左斜め上に上昇（上昇は、Zが負）
+print_state_velocity("STAET")
+startLocation=vehicle.location.global_relative_frame
+velocity_x = 5
+velocity_y = -5
+velocity_z = -5
+duration = 2
+send_ned_distance(velocity_x, velocity_y, velocity_z, duration)
+get_goto_distance(startLocation)
+print_state_velocity("END")
+
+# 10m 右に移動
+print_state_velocity("STAET")
+startLocation=vehicle.location.global_relative_frame
+velocity_x = 0
+velocity_y = 10
+velocity_z = 0
+duration = 2
+send_ned_distance(velocity_x, velocity_y, velocity_z, duration)
+get_goto_distance(startLocation)
+print_state_velocity("END")
+
+# 5m 左斜め下に下降（下降は、Zが正）
+print_state_velocity("STAET")
+startLocation=vehicle.location.global_relative_frame
+velocity_x = -5
+velocity_y = -5
+velocity_z = 5
+duration = 2
+send_ned_distance(velocity_x, velocity_y, velocity_z, duration)
+get_goto_distance(startLocation)
+print_state_velocity("END")
+
+# 元の位置まで後進
 print_state_velocity("STAET")
 startLocation=vehicle.location.global_relative_frame
 velocity_x = -5

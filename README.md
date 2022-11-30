@@ -8,7 +8,7 @@ send_ned_distance.py
 
       distance_x: X方向の距離（単位:m）
       distance_y: Y方向の距離（単位:m）
-      distance_z: Z方向の距離（単位:m）
+      distance_z: Z方向の距離（単位:m）※上昇は負、下降は正
       duration:   飛行時間（単位:s）※省略時:1
       max_speed:  飛行速度（単位:m/s）※省略時:1
 
