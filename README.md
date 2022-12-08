@@ -1,5 +1,7 @@
 # droneschool
 
+## 説明
+
 send_ned_distance.py
 
   コア関数：send_ned_distance
@@ -17,3 +19,13 @@ send_ned_distance.py
 * max_speed を超える場合は、飛行時間を延ばして調整しています。
 * 距離の理論値と、GPSで計測した実測値を表示し、比べられる様にしています。
 * 停止（ホバリング）には、フレア操作を実装しています。
+
+## インストール方法
+
+
+    git clone https://github.com/csc-takeda/droneschool.git
+
+
+## 実行方法
+
+    python3 send_ned_distance.py

@@ -245,4 +245,11 @@ send_ned_distance(velocity_x, velocity_y, velocity_z, duration)
 get_goto_distance(startLocation)
 print_state_velocity("END")
 
-vehicle.mode = VehicleMode("LAND")
+while vehicle.mode.name != "LAND":
+    vehicle.mode = VehicleMode("LAND")
+    time.sleep(5)
+    print(" Mode: %s" % vehicle.mode.name )
+
+while vehicle.armed: 
+    print('Waiting for disarming...')
+    time.sleep(1)
