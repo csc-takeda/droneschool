@@ -415,8 +415,8 @@ def plane(vehicle):
     vehicle – 機体オブジェクト
     """
     #vehicle.mode = VehicleMode("GUIDED")
-    #arming_copter(vehicle)
-    takeoff_copter(vehicle)
+    arming_copter(vehicle)
+    #takeoff_copter(vehicle)
     
     #upload_takeoff_mission(vehicle)
     #upload_mission(vehicle, "./takeoff.waypoints")
@@ -424,6 +424,15 @@ def plane(vehicle):
     
     vehicle.mode = VehicleMode("GUIDED")
     upload_mission(vehicle, "./plane.waypoints")
+    vehicle.mode = VehicleMode("TAKEOFF")
+    
+    takeoff_alt = mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT
+    while True:
+        print('Altitude: %d' % vehicle.location.global_relative_frame.alt)
+        if vehicle.location.global_relative_frame.alt >= takeoff_alt * 0.95:
+            print('REACHED TARGET ALTITUDE') 
+            break 
+        time.sleep(1) 
     
     while True:
         vehicle.mode = VehicleMode("AUTO")
