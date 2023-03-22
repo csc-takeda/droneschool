@@ -1,0 +1,193 @@
+[33m[ WARN] [1679445080.240724359]: Could not retrive negate_measured_roll parameter value, using default (0)[0m
+[33m[ WARN] [1679445080.242383042]: Could not retrive negate_measured_pitch parameter value, using default (0)[0m
+[33m[ WARN] [1679445080.243804261]: Could not retrive negate_measured_yaw parameter value, using default (0)[0m
+[33m[ WARN] [1679445080.248480975]: Could not retrive debounce_s parameter value, using default (4.000000)[0m
+[33m[ WARN] [1679445080.250006083]: Could not retrive err_threshold_deg parameter value, using default (10.000000)[0m
+[0m[ INFO] [1679445079.762006163]: FCU URL: /dev/ttyAMA1:921600[0m
+[0m[ INFO] [1679445079.769430594]: serial0: device: /dev/ttyAMA1 @ 921600 bps[0m
+[0m[ INFO] [1679445079.770445537]: GCS bridge disabled[0m
+[0m[ INFO] [1679445079.804911086]: Plugin 3dr_radio loaded[0m
+[0m[ INFO] [1679445079.810433168]: Plugin 3dr_radio initialized[0m
+[0m[ INFO] [1679445079.810521298]: Plugin actuator_control blacklisted[0m
+[0m[ INFO] [1679445079.821684389]: Plugin adsb loaded[0m
+[0m[ INFO] [1679445079.831593093]: Plugin adsb initialized[0m
+[0m[ INFO] [1679445079.831671926]: Plugin altitude blacklisted[0m
+[0m[ INFO] [1679445079.831906407]: Plugin cam_imu_sync loaded[0m
+[0m[ INFO] [1679445079.833932478]: Plugin cam_imu_sync initialized[0m
+[0m[ INFO] [1679445079.834251051]: Plugin camera loaded[0m
+[0m[ INFO] [1679445079.836629899]: Plugin camera initialized[0m
+[0m[ INFO] [1679445079.836893732]: Plugin cellular_status loaded[0m
+[0m[ INFO] [1679445079.844505236]: Plugin cellular_status initialized[0m
+[0m[ INFO] [1679445079.844815958]: Plugin command loaded[0m
+[0m[ INFO] [1679445079.865681754]: Plugin command initialized[0m
+[0m[ INFO] [1679445079.865950550]: Plugin companion_process_status loaded[0m
+[0m[ INFO] [1679445079.873574628]: Plugin companion_process_status initialized[0m
+[0m[ INFO] [1679445079.873672610]: Plugin debug_value blacklisted[0m
+[0m[ INFO] [1679445079.873939424]: Plugin distance_sensor loaded[0m
+[0m[ INFO] [1679445079.904295943]: Plugin distance_sensor initialized[0m
+[0m[ INFO] [1679445079.904919109]: Plugin esc_status loaded[0m
+[0m[ INFO] [1679445079.908330251]: Plugin esc_status initialized[0m
+[0m[ INFO] [1679445079.908646028]: Plugin esc_telemetry loaded[0m
+[0m[ INFO] [1679445079.910871302]: Plugin esc_telemetry initialized[0m
+[0m[ INFO] [1679445079.911344394]: Plugin fake_gps loaded[0m
+[0m[ INFO] [1679445079.968208013]: Plugin fake_gps initialized[0m
+[0m[ INFO] [1679445079.968296513]: Plugin ftp blacklisted[0m
+[0m[ INFO] [1679445079.968604827]: Plugin geofence loaded[0m
+[0m[ INFO] [1679445079.979445030]: Plugin geofence initialized[0m
+[0m[ INFO] [1679445079.979857807]: Plugin global_position loaded[0m
+[0m[ INFO] [1679445080.034211136]: Plugin global_position initialized[0m
+[0m[ INFO] [1679445080.034610283]: Plugin gps_input loaded[0m
+[0m[ INFO] [1679445080.043785081]: Plugin gps_input initialized[0m
+[0m[ INFO] [1679445080.044079007]: Plugin gps_rtk loaded[0m
+[0m[ INFO] [1679445080.053166787]: Plugin gps_rtk initialized[0m
+[0m[ INFO] [1679445080.053455323]: Plugin gps_status loaded[0m
+[0m[ INFO] [1679445080.061535124]: Plugin gps_status initialized[0m
+[0m[ INFO] [1679445080.061941901]: Plugin guided_target loaded[0m
+[0m[ INFO] [1679445080.080962922]: Plugin guided_target initialized[0m
+[0m[ INFO] [1679445080.081046089]: Plugin hil blacklisted[0m
+[0m[ INFO] [1679445080.081306459]: Plugin home_position loaded[0m
+[0m[ INFO] [1679445080.093107938]: Plugin home_position initialized[0m
+[0m[ INFO] [1679445080.093520122]: Plugin imu loaded[0m
+[0m[ INFO] [1679445080.118555966]: Plugin imu initialized[0m
+[0m[ INFO] [1679445080.118869262]: Plugin landing_target loaded[0m
+[0m[ INFO] [1679445080.162655351]: Plugin landing_target initialized[0m
+[0m[ INFO] [1679445080.162975757]: Plugin local_position loaded[0m
+[0m[ INFO] [1679445080.184263553]: Plugin local_position initialized[0m
+[0m[ INFO] [1679445080.184568015]: Plugin log_transfer loaded[0m
+[0m[ INFO] [1679445080.194801886]: Plugin log_transfer initialized[0m
+[0m[ INFO] [1679445080.195113330]: Plugin mag_calibration_status loaded[0m
+[0m[ INFO] [1679445080.198925175]: Plugin mag_calibration_status initialized[0m
+[0m[ INFO] [1679445080.199333044]: Plugin manual_control loaded[0m
+[0m[ INFO] [1679445080.208661491]: Plugin manual_control initialized[0m
+[0m[ INFO] [1679445080.208957601]: Plugin mocap_pose_estimate loaded[0m
+[0m[ INFO] [1679445080.222493003]: Plugin mocap_pose_estimate initialized[0m
+[0m[ INFO] [1679445080.222826132]: Plugin mount_control loaded[0m
+[0m[ INFO] [1679445080.250242139]: Plugin mount_control initialized[0m
+[0m[ INFO] [1679445080.250617064]: Plugin nav_controller_output loaded[0m
+[0m[ INFO] [1679445080.252938060]: Plugin nav_controller_output initialized[0m
+[0m[ INFO] [1679445080.253266670]: Plugin obstacle_distance loaded[0m
+[0m[ INFO] [1679445080.261889155]: Plugin obstacle_distance initialized[0m
+[0m[ INFO] [1679445080.262234580]: Plugin odom loaded[0m
+[0m[ INFO] [1679445080.281101287]: Plugin odom initialized[0m
+[0m[ INFO] [1679445080.281567027]: Plugin onboard_computer_status loaded[0m
+[0m[ INFO] [1679445080.289094551]: Plugin onboard_computer_status initialized[0m
+[0m[ INFO] [1679445080.289477939]: Plugin param loaded[0m
+[0m[ INFO] [1679445080.298660311]: Plugin param initialized[0m
+[0m[ INFO] [1679445080.298971755]: Plugin play_tune loaded[0m
+[0m[ INFO] [1679445080.306400223]: Plugin play_tune initialized[0m
+[0m[ INFO] [1679445080.306497575]: Plugin px4flow blacklisted[0m
+[0m[ INFO] [1679445080.306774575]: Plugin rallypoint loaded[0m
+[0m[ INFO] [1679445080.315965947]: Plugin rallypoint initialized[0m
+[0m[ INFO] [1679445080.316276835]: Plugin rangefinder loaded[0m
+[0m[ INFO] [1679445080.318234388]: Plugin rangefinder initialized[0m
+[0m[ INFO] [1679445080.318615998]: Plugin rc_io loaded[0m
+[0m[ INFO] [1679445080.329213312]: Plugin rc_io initialized[0m
+[0m[ INFO] [1679445080.329334553]: Plugin safety_area blacklisted[0m
+[0m[ INFO] [1679445080.329597941]: Plugin setpoint_accel loaded[0m
+[0m[ INFO] [1679445080.339270924]: Plugin setpoint_accel initialized[0m
+[0m[ INFO] [1679445080.339721386]: Plugin setpoint_attitude loaded[0m
+[0m[ INFO] [1679445080.366836819]: Plugin setpoint_attitude initialized[0m
+[0m[ INFO] [1679445080.367178393]: Plugin setpoint_position loaded[0m
+[0m[ INFO] [1679445080.417043193]: Plugin setpoint_position initialized[0m
+[0m[ INFO] [1679445080.417429192]: Plugin setpoint_raw loaded[0m
+[0m[ INFO] [1679445080.447114398]: Plugin setpoint_raw initialized[0m
+[0m[ INFO] [1679445080.447446731]: Plugin setpoint_trajectory loaded[0m
+[0m[ INFO] [1679445080.462576148]: Plugin setpoint_trajectory initialized[0m
+[0m[ INFO] [1679445080.462989944]: Plugin setpoint_velocity loaded[0m
+[0m[ INFO] [1679445080.481395633]: Plugin setpoint_velocity initialized[0m
+[0m[ INFO] [1679445080.481911206]: Plugin sys_status loaded[0m
+[0m[ INFO] [1679445080.517126532]: Plugin sys_status initialized[0m
+[0m[ INFO] [1679445080.517490476]: Plugin sys_time loaded[0m
+[0m[ INFO] [1679445080.533524170]: TM: Timesync mode: MAVLINK[0m
+[0m[ INFO] [1679445080.535002186]: TM: Not publishing sim time[0m
+[0m[ INFO] [1679445080.538898012]: Plugin sys_time initialized[0m
+[0m[ INFO] [1679445080.539198326]: Plugin terrain loaded[0m
+[0m[ INFO] [1679445080.541245174]: Plugin terrain initialized[0m
+[0m[ INFO] [1679445080.541585526]: Plugin trajectory loaded[0m
+[0m[ INFO] [1679445080.558978606]: Plugin trajectory initialized[0m
+[0m[ INFO] [1679445080.559289124]: Plugin tunnel loaded[0m
+[0m[ INFO] [1679445080.568649496]: Plugin tunnel initialized[0m
+[0m[ INFO] [1679445080.569056254]: Plugin vfr_hud loaded[0m
+[0m[ INFO] [1679445080.571235306]: Plugin vfr_hud initialized[0m
+[0m[ INFO] [1679445080.571358935]: Plugin vibration blacklisted[0m
+[0m[ INFO] [1679445080.571695472]: Plugin vision_pose_estimate loaded[0m
+[0m[ INFO] [1679445080.625799949]: Plugin vision_pose_estimate initialized[0m
+[0m[ INFO] [1679445080.626015079]: Plugin vision_speed_estimate blacklisted[0m
+[0m[ INFO] [1679445080.626406263]: Plugin waypoint loaded[0m
+[0m[ INFO] [1679445080.642454049]: Plugin waypoint initialized[0m
+[0m[ INFO] [1679445080.642590012]: Plugin wheel_odometry blacklisted[0m
+[0m[ INFO] [1679445080.642884882]: Plugin wind_estimation loaded[0m
+[0m[ INFO] [1679445080.645054952]: Plugin wind_estimation initialized[0m
+[0m[ INFO] [1679445080.645427414]: Built-in SIMD instructions: ARM NEON[0m
+[0m[ INFO] [1679445080.645738043]: Built-in MAVLink package version: 2022.12.30[0m
+[0m[ INFO] [1679445080.6458[33m[ WARN] [1679445080.648028669]: IMU: linear acceleration on RAW_IMU known on APM only.[0m
+[33m[ WARN] [1679445080.648250668]: IMU: ~imu/data_raw stores unscaled raw acceleration report.[0m
+[33m[ WARN] [1679445080.648546335]: GP: No GPS fix[0m
+[33m[ WARN] [1679445081.685360180]: CMD: Unexpected command 520, result 0[0m
+[33m[ WARN] [1679445100.865671890]: PR: Param STAT_RUNTIME (65535/855): <value><i4>22053</i4></value> different index: 508/855[0m
+[33m[ WARN] [1679445110.731816286]: GP: No GPS fix[0m
+[33m[ WARN] [1679445130.986962131]: TM : RTT too high for timesync: 1679443517952.66 ms.[0m
+[33m[ WARN] [1679445140.732636451]: GP: No GPS fix[0m
+[33m[ WARN] [1679445170.733556271]: GP: No GPS fix[0m
+[33m[ WARN] [1679445191.107644105]: TM : RTT too high for timesync: 1679443517952.51 ms.[0m
+[33m[ WARN] [1679445200.734524523]: GP: No GPS fix[0m
+[33m[ WARN] [1679445230.735380967]: GP: No GPS fix[0m
+[33m[ WARN] [1679445251.250512378]: TM : RTT too high for timesync: 1679443517975.37 ms.[0m
+[33m[ WARN] [1679445260.735698441]: GP: No GPS fix[0m
+[33m[ WARN] [1679445268.491112062]: FCU: EKF3 IMU0 stopped aiding[0m
+[33m[ WARN] [1679445268.491833581]: FCU: EKF3 IMU1 stopped aiding[0m
+[33m[ WARN] [1679445268.492219877]: FCU: EKF3 IMU2 stopped aiding[0m
+19302]: Known MAVLink dialects: common ardupilotmega ASLUAV AVSSUAS all cubepilot development icarous matrixpilot paparazzi standard storm32 uAvionix ualberta[0m
+[0m[ INFO] [1679445080.646733912]: MAVROS started. MY ID 1.240, TARGET ID 1.1[0m
+[0m[ INFO] [1679445080.647431633]: RC_CHANNELS message detected![0m
+[0m[ INFO] [1679445080.647857669]: IMU: Raw IMU message used.[0m
+[0m[ INFO] [1679445080.649416203]: CON: Got HEARTBEAT, connected. FCU: ArduPilot[0m
+[0m[ INFO] [1679445080.654033695]: RC_CHANNELS message detected![0m
+[0m[ INFO] [1679445080.905969467]: FCU: EKF3 IMU0 is using external nav data[0m
+[0m[ INFO] [1679445080.906917225]: FCU: EKF3 IMU0 initial pos NED = -0.0,-0.0,0.0 (m)[0m
+[0m[ INFO] [1679445080.907415020]: FCU: EKF3 IMU1 is using external nav data[0m
+[0m[ INFO] [1679445080.908372111]: FCU: EKF3 IMU1 initial pos NED = -0.0,-0.0,0.0 (m)[0m
+[0m[ INFO] [1679445080.909152739]: FCU: EKF3 IMU2 is using external nav data[0m
+[0m[ INFO] [1679445080.910230145]: FCU: EKF3 IMU2 initial pos NED = -0.0,-0.0,0.0 (m)[0m
+[0m[ INFO] [1679445080.910560830]: FCU: AHRS: EKF3 active[0m
+[0m[ INFO] [1679445081.686551159]: GF: Using MISSION_ITEM_INT[0m
+[0m[ INFO] [1679445081.686676529]: RP: Using MISSION_ITEM_INT[0m
+[0m[ INFO] [1679445081.686777436]: WP: Using MISSION_ITEM_INT[0m
+[0m[ INFO] [1679445081.686874084]: VER: 1.1: Capabilities         0x000000000000f1ef[0m
+[0m[ INFO] [1679445081.686950917]: VER: 1.1: Flight software:     040203ff (2172cfb3)[0m
+[0m[ INFO] [1679445081.687010677]: VER: 1.1: Middleware software: 00000000 (        )[0m
+[0m[ INFO] [1679445081.687130102]: VER: 1.1: OS software:         00000000 (38022f4f?-X??)[0m
+[0m[ INFO] [1679445081.687185917]: VER: 1.1: Board hardware:      04270000[0m
+[0m[ INFO] [1679445081.687235824]: VER: 1.1: VID/PID:             2dae:1058[0m
+[0m[ INFO] [1679445081.687300509]: VER: 1.1: UID:                 0000000000000000[0m
+[0m[ INFO] [1679445090.651311081]: HP: requesting home position[0m
+[0m[ INFO] [1679445090.665306799]: FCU: ArduRover V4.2.3 (2172cfb3)[0m
+[0m[ INFO] [1679445090.665534169]: FCU: ChibiOS: 38022f4f[0m
+[0m[ INFO] [1679445090.666022186]: FCU: CubeOrangePlu 0043002D 31395105 3539333[0m
+[0m[ INFO] [1679445090.666375352]: FCU: RCOut: PWM:1-14[0m
+[0m[ INFO] [1679445090.666972648]: FCU: IMU0: fast sampling enabled 2.0kHz[0m
+[0m[ INFO] [1679445090.667485388]: FCU: IMU1: fast sampling enabled 9.0kHz/2.3kHz[0m
+[0m[ INFO] [1679445090.668096776]: FCU: IMU2: fast sampling enabled 9.0kHz/2.3kHz[0m
+[0m[ INFO] [1679445095.664606854]: GF: mission received[0m
+[0m[ INFO] [1679445095.665111983]: RP: mission received[0m
+[0m[ INFO] [1679445095.665328168]: WP: mission received[0m
+[0m[ INFO] [1679445100.651237517]: HP: requesting home position[0m
+[0m[ INFO] [1679445107.767845217]: PR: parameters list received[0m
+[0m[ INFO] [1679445110.651270799]: HP: requesting home position[0m
+[0m[ INFO] [1679445120.651223808]: HP: requesting home position[0m
+[0m[ INFO] [1679445130.651245006]: HP: requesting home position[0m
+[0m[ INFO] [1679445140.651349188]: HP: requesting home position[0m
+[0m[ INFO] [1679445150.651253041]: HP: requesting home position[0m
+[0m[ INFO] [1679445160.651282605]: HP: requesting home position[0m
+[0m[ INFO] [1679445170.651250089]: HP: requesting home position[0m
+[0m[ INFO] [1679445180.651260834]: HP: requesting home position[0m
+[0m[ INFO] [1679445190.651288905]: HP: requesting home position[0m
+[0m[ INFO] [1679445200.651245609]: HP: requesting home position[0m
+[0m[ INFO] [1679445210.651239848]: HP: requesting home position[0m
+[0m[ INFO] [1679445220.651242155]: HP: requesting home position[0m
+[0m[ INFO] [1679445230.651267713]: HP: requesting home position[0m
+[0m[ INFO] [1679445240.651252928]: HP: requesting home position[0m
+[0m[ INFO] [1679445250.651313078]: HP: requesting home position[0m
+[0m[ INFO] [1679445260.490739929]: FCU: AHRS: DCM active[0m
+[0m[ INFO] [1679445260.651249461]: HP: requesting home position[0m
+[0m[ INFO] [1679445270.651259006]: HP: requesting home position
