@@ -805,7 +805,9 @@ Right frame (800, 848)
   1. “Mavlink Inspector” をクリックします。
   1. VISION_POSITION_DELTA の値を確認します。
   <img alt="VISION_POSITION_1" src="image/VPD1.png" width="90%">
+
   * **<font color="red">最長 15 分程度で、カメラからの情報が切れてしまう。</font>**<br>
+
 * リアルタイムの距離確認
   1. Mission Planner で Ctrl+F を押します。
   1. “Proximity” をクリックします。
@@ -925,9 +927,13 @@ $ rosrun rqt_console rqt_console
   1. Mission Planner で Ctrl+F を押します。
   1. “Mavlink Inspector” をクリックします。
   1. VISION_POSITION_DELTA の値を確認します。
+
   <img alt="VISION_POSITION_2" src="image/VPD2.png" width="90%">
+  
   * **<font color="red">最長 1 分程度で、カメラからの情報が切れてしまう。</font>**<br>
+
     以下は、その際の LOG の例です。（CSVは、rqt_console の出力）
+
       * [mavros_1.log](./image/mavros_1.log) 
       * [mavros_1.csv](./image/mavros_1.csv) 
       * [mavros_2.log](./image/mavros_2.log) 
