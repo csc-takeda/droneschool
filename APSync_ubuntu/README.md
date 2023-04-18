@@ -557,21 +557,8 @@ $ sudo systemctl enable APWeb.service
 $ sudo systemctl start APWeb.service
 $ sudo reboot
 ```
-* APWeb.service
-```
-[Unit]
-Description=ApWeb Service
+* [APWeb.service](./text/APWeb.service) を参照下さい。
 
-[Service]
-Type=simple
-ExecStart=/home/pi/start_apweb/web_server -p 80 -f 14756
-WorkingDirectory=/home/pi/start_apweb
-Restart=on-failure
-User=root
-
-[Install]
-WantedBy=multi-user.target
-```
 
 * APWeb/modules/mavlink が --recurse-submodules で clone されないため、<br>
   **<font color="red">mavlink を APWeb/modules の下にマニュアルで clone します。</font>**
@@ -1027,11 +1014,45 @@ Right frame (800, 848)
 
 ### ① MAVROS のインストール
 
-[ROS講座131 ArdupilotとROS経由で接続する](https://qiita.com/srs/items/09d217c8b9f9e21d2f1d) を参考に、MAVROS をインストールします。
+[MAVROS Source installation](https://github.com/mavlink/mavros/blob/master/mavros/README.md#installation) を参考に、MAVROS をインストールします。
 
 ```
-$ sudo apt install ros-noetic-mavros -y
-$ sudo apt install ros-noetic-mavros-extras -y
+$ sudo apt remove ros-noetic-mavros
+$ sudo apt remove ros-noetic-mavros-extras
+$ sudo apt remove ros-noetic-mavros-msgs
+
+# 1. Create the workspace: unneeded if you already has workspace
+$ mkdir -p ~/catkin_ws2/src
+$ cd ~/catkin_ws2
+$ catkin init
+$ wstool init src
+
+# 2. Install MAVLink
+#    we use the Kinetic reference for all ROS distros as it's not distro-specific and up to date
+$ rosinstall_generator --rosdistro noetic mavlink | tee /tmp/mavros.rosinstall
+
+# 3. Install MAVROS: get source (upstream - released)
+$ rosinstall_generator --upstream mavros | tee -a /tmp/mavros.rosinstall
+# alternative: latest source
+# rosinstall_generator --upstream-development mavros | tee -a /tmp/mavros.rosinstall
+# For fetching all the dependencies into your catkin_ws, just add '--deps' to the above scripts
+# ex: rosinstall_generator --upstream mavros --deps | tee -a /tmp/mavros.rosinstall
+
+# 4. Create workspace & deps
+$ wstool merge -t src /tmp/mavros.rosinstall
+$ wstool update -t src -j1
+$ rosdep install --from-paths src --ignore-src -y
+
+# 5. Install GeographicLib datasets:
+$ sudo ./src/mavros/mavros/scripts/install_geographiclib_datasets.sh
+
+# 6. Build source
+$ catkin build -j1
+
+# 7. Make sure that you use setup.bash or setup.zsh from workspace.
+#    Else rosrun can't find nodes from this workspace.
+$ echo "source ~/catkin_ws2/devel/setup.bash" >> ~/.bashrc
+$ source ~/.bashrc
 ```
 
 ### ② Vision_to_mavros のインストール
@@ -1159,16 +1180,16 @@ transforms:
   　[ WARN] [xxxx]: TM : RTT too high for timesync: 17.76 ms.
   対策方法：
     下記手順で、timesync_rate を 0 に変更します。
-    $ cd /opt/ros/noetic/share/mavros/launch/
-    $ sudo cp -p apm_config.yaml apm_config.yaml.bak
-    $ sudo vi apm_config.yaml
+    $ cd ~/catkin_ws2/src/mavros/mavros/launch/
+    $ cp -p apm_config.yaml apm_config.yaml.bak
+    $ vi apm_config.yaml
     $ diff apm_config.yaml apm_config.yaml.bak
-    2,13c12,13
+    12,13c12,13
     <   timeout: 50.0          # heartbeat timeout in seconds
     <   timesync_rate: 0.0    # TIMESYNC rate in Hertz (feature disabled if 0.0)
     ---
     >   timeout: 10.0          # heartbeat timeout in seconds
-    >   timesync_rate: 10.0    # TIMESYNC rate in Hertz (feature disabled if 0.0)
+    >   timesync_rate: 1.0    # TIMESYNC rate in Hertz (feature disabled if 0.0)
   対象ファイル：
   　apm_config.yaml
   ```
@@ -1199,10 +1220,10 @@ $ rosrun rqt_console rqt_console
 
     以下は、その際の LOG の例です。（CSVは、rqt_console の出力）
 
-      * [mavros_1.log](./image/mavros_1.log) 
-      * [mavros_1.csv](./image/mavros_1.csv) 
-      * [mavros_2.log](./image/mavros_2.log) 
-      * [mavros_2.csv](./image/mavros_2.csv) 
+      * [mavros_1.log](./text/mavros_1.log) 
+      * [mavros_1.csv](./text/mavros_1.csv) 
+      * [mavros_2.log](./text/mavros_2.log) 
+      * [mavros_2.csv](./text/mavros_2.csv) 
 
 ## Luxonis OAK-D ROS 環境構築
 
@@ -1674,8 +1695,8 @@ $ sudo apt-get install python3-wstool python3-rosdep ninja-build
 * **<font color="red">ROSのパッケージのビルドコマンドが他と異なるため、ワークスペース分ける。</font>**
 
 ```
-$ mkdir ~/catkin_ws2
-$ cd ~/catkin_ws2
+$ mkdir ~/catkin_ws3
+$ cd ~/catkin_ws3
 $ wstool init src
 $ wstool merge -t src https://raw.githubusercontent.com/googlecartographer/cartographer_ros/master/cartographer_ros.rosinstall
 $ wstool update -t src
@@ -1695,7 +1716,7 @@ $ diff package.xml package.xml.bak
 45a46
 >   <depend>libabsl-dev</depend>
 
-$ cd ~/catkin_ws2
+$ cd ~/catkin_ws3
 $ rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
 ```
 
@@ -1717,175 +1738,41 @@ $ rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
 #### (4) Clone the Robot Pose Publisher package into the workspace
 
 ```
-$ cd ~/catkin_ws2/src
+$ cd ~/catkin_ws3/src
 $ git clone https://github.com/GT-RAIL/robot_pose_publisher.git
 ```
 
 #### (5) Create the cartographer_ros launch file using your favourite editor
 
 ```
-$ cd ~/catkin_ws2/src/cartographer_ros/cartographer_ros/launch
+$ cd ~/catkin_ws3/src/cartographer_ros/cartographer_ros/launch
 $ vi ydlidar_2d.launch
+　※記述内容は下記を参照して下さい。
 ```
 
-* ydlidar_2d.launch
+* [ydlidar_2d.launch](./text/ydlidar_2d.launch) を参照下さい。
   * node name="robot_pose_publisher" の追加が必須です。
-
-```
-<?xml version="1.0" ?>
-<launch>
-  <node name="ydlidar_lidar_publisher"  pkg="ydlidar_ros_driver"  type="ydlidar_ros_driver_node" output="screen" respawn="false" >
-    <!-- string property -->
-    <param name="port"         type="string" value="/dev/ttyUSB0"/>
-    <param name="frame_id"     type="string" value="laser_frame"/>
-    <param name="ignore_array"     type="string" value=""/>
-
-    <!-- int property -->
-    <param name="baudrate"         type="int" value="128000"/>
-    <!-- 0:TYPE_TOF, 1:TYPE_TRIANGLE, 2:TYPE_TOF_NET -->
-    <param name="lidar_type"       type="int" value="1"/>
-    <!-- 0:YDLIDAR_TYPE_SERIAL, 1:YDLIDAR_TYPE_TCP -->
-    <param name="device_type"         type="int" value="0"/>
-    <param name="sample_rate"         type="int" value="5"/>
-    <param name="abnormal_check_count"         type="int" value="4"/>
-
-    <!-- bool property -->
-    <param name="resolution_fixed"    type="bool"   value="true"/>
-    <param name="auto_reconnect"    type="bool"   value="true"/>
-    <param name="reversion"    type="bool"   value="false"/>
-    <param name="inverted"    type="bool"   value="true"/>
-    <param name="isSingleChannel"    type="bool"   value="false"/>
-    <param name="intensity"    type="bool"   value="false"/>
-    <param name="support_motor_dtr"    type="bool"   value="true"/>
-    <param name="invalid_range_is_inf"    type="bool"   value="false"/>
-    <param name="point_cloud_preservative"    type="bool"   value="false"/>
-
-    <!-- float property -->
-    <param name="angle_min"    type="double" value="-180" />
-    <param name="angle_max"    type="double" value="180" />
-    <param name="range_min"    type="double" value="0.1" />
-    <param name="range_max"    type="double" value="12.0" />
-    <!-- frequency is invalid, External PWM control speed -->
-    <param name="frequency"    type="double" value="10.0"/>
-  </node>
-
-  <node
-     pkg="tf"
-     type="static_transform_publisher"
-     name="base_link_connect"
-     args="0 0 0 0 0 0 /base_link /laser_frame 100"
-  />
-
-  <node
-    name="cartographer_occupancy_grid_node"
-    pkg="cartographer_ros"
-    type="cartographer_occupancy_grid_node"
-    args="-resolution 0.05"
-  />
-
-  <node name="robot_pose_publisher"
-    pkg="robot_pose_publisher"
-    type="robot_pose_publisher"
-    respawn="false"
-    output="screen" >
-    <param name="is_stamped" type="bool" value="true"/>
-    <remap from="robot_pose" to="/mavros/vision_pose/pose" />
-  </node>
-
-  <node
-    name="cartographer_node"
-    pkg="cartographer_ros"
-    type="cartographer_node"
-    args="-configuration_directory $(find cartographer_ros)/configuration_files -configuration_basename ydlidar_2d.lua"
-    output="screen">
-  </node>
-
-  <node
-    name="rviz"
-    pkg="rviz"
-    type="rviz"
-    required="true"
-    args="-d $(find ydlidar_ros_driver)/launch/lidar.rviz"
-  />
-</launch>
-```
 
 #### (6) Create the cartographer.lua script using our favourite editor
 
 ```
-$ cd ~/catkin_ws2/src/cartographer_ros/cartographer_ros/configuration_files
+$ cd ~/catkin_ws3/src/cartographer_ros/cartographer_ros/configuration_files
 $ vi ydlidar_2d.lua
+　※記述内容は下記を参照して下さい。
 ```
 
-* ydlidar_2d.lua
-
-```
-include "map_builder.lua"
-include "trajectory_builder.lua"
-
-options = {
-  map_builder = MAP_BUILDER,
-  trajectory_builder = TRAJECTORY_BUILDER,
-  map_frame = "map",
-  tracking_frame = "base_link",
-  published_frame = "base_link",
-  odom_frame = "odom",
-  provide_odom_frame = false,
-  publish_frame_projected_to_2d = false,
-  use_odometry = false,
-  use_nav_sat = false,
-  use_landmarks = false,
-  num_laser_scans = 1,
-  num_multi_echo_laser_scans = 0,
-  num_subdivisions_per_laser_scan = 1,
-  num_point_clouds = 0,
-  lookup_transform_timeout_sec = 0.2,
-  submap_publish_period_sec = 0.3,
-  pose_publish_period_sec = 5e-3,
-  trajectory_publish_period_sec = 30e-3,
-  rangefinder_sampling_ratio = 1.,
-  odometry_sampling_ratio = 1.,
-  fixed_frame_pose_sampling_ratio = 1.,
-  imu_sampling_ratio = 1.,
-  landmarks_sampling_ratio = 1.,
-}
-
-MAP_BUILDER.use_trajectory_builder_2d = true
-
-TRAJECTORY_BUILDER_2D.min_range = 0.
-TRAJECTORY_BUILDER_2D.max_range = 10.
-TRAJECTORY_BUILDER_2D.missing_data_ray_length = 5.
-TRAJECTORY_BUILDER_2D.use_imu_data = false
-TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
-
-POSE_GRAPH.constraint_builder.min_score = 0.65
-POSE_GRAPH.constraint_builder.global_localization_min_score = 0.7
-
-POSE_GRAPH.optimization_problem.local_slam_pose_translation_weight = 1e5
-POSE_GRAPH.optimization_problem.local_slam_pose_rotation_weight = 1e5
-POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e5
-POSE_GRAPH.optimization_problem.odometry_rotation_weight = 1e5
-POSE_GRAPH.optimization_problem.huber_scale = 1e3
-
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 10
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 40
-
-TRAJECTORY_BUILDER_2D.submaps.num_range_data = 120
-TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.1
-TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = math.rad(0.2)
-
-return options
-```
+* [ydlidar_2d.lua](./text/ydlidar_2d.lua) を参照下さい。
 
 ### ③ ビルド
 
 ```
-$ sudo stow absl
-$ cd ~/catkin_ws2/
+$ cd ~/catkin_ws3/
+$ pip3 install absl-py
+
 $ src/cartographer/scripts/install_abseil.sh
 $ catkin build -j1
 
-$ echo "source ~/catkin_ws2/devel/setup.bash" >> ~/.bashrc
+$ echo "source ~/catkin_ws3/devel/setup.bash" >> ~/.bashrc
 $ source ~/.bashrc
 ```
 
@@ -1893,7 +1780,7 @@ $ source ~/.bashrc
 
   ```
   エラーメッセージ：
-    CMake Error at /home/pi/catkin_ws2/src/cartographer/CMakeLists.txt:32 (find_package):
+    CMake Error at /home/pi/catkin_ws3/src/cartographer/CMakeLists.txt:32 (find_package):
       By not providing "Findabsl.cmake" in CMAKE_MODULE_PATH this project has
       asked CMake to find a package configuration file provided by "absl", but
       CMake did not find one.
@@ -1991,4 +1878,98 @@ pose:
   <img alt="VISION_POSITION3" src="image/VPD3.png" width="90%">
   
   * **動作問題なし。**
+
+## 自動走行 環境構築
+
+### ① MAVROS_Python_Examples
+
+[masoudir/mavros_python_examples - Github](https://github.com/masoudir/mavros_python_examples/) を参考。
+
+#### (1) インストール
+
+```
+$ cd ~/GitHub/
+$ git clone https://www.github.com/masoudir/mavros_python_examples
+$ cd mavros_python_examples
+$ pip3 install -U mavros_python_examples
+```
+
+#### (2) 自動走行プログラム修正
+
+[How can I move PX4 drone to GPS position I specified?](https://github.com/mavlink/mavros/issues/1456) と、<br>
+[Mavros mavcmd 213: unexpected command error with result 0](https://answers.ros.org/question/387122/mavros-mavcmd-213-unexpected-command-error-with-result-0/) を参考。
+
+* 自動走行プログラム（rover.py）を Non-GPS 対応に修正する。<br>
+  （GlobalPositionTarget　⇒　PositionTarget に変更する。）
+
+  * [rover.py](./text/rover.py)：付随のサンプルで、GPS対応（GlobalPositionTarget 使用）
+  * [rover_NonGPS.py](./text/rover_NonGPS.py)：Non-GPS対応に修正（PositionTarget 使用）
+
+```
+$ cd ~/GitHub/mavros_python_examples/test
+$ cp -p rover.py rover_NonGPS.py
+$ vi rover_NonGPS.py
+```
+
+* roverHandler.py を修正する。
+  * タイミングによって以下のエラーが発生します。
+
+```
+$ cd ~/GitHub/mavros_python_examples/mavros_python_examples
+$ cp -p roverHandler.py roverHandler.py.bak
+$ vi roverHandler.py
+$ diff roverHandler.py roverHandler.py.bak
+87,89c87,88
+<                 if data:
+<                     self.armed = data.armed
+<                     self.mode = data.mode
+---
+>                 self.armed = data.armed
+>                 self.mode = data.mode
+```
+
+  ```
+  エラーメッセージ：
+    [INFO] [1681698329.070849]: waiting for ROS service:/mavros/param/set
+    [INFO] [1681698329.138070]: Rospy is up ...
+    Exception in thread Thread-1:
+    Traceback (most recent call last):
+      File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+        self.run()
+      File "/usr/lib/python3.8/threading.py", line 1254, in run
+        self.function(*self.args, **self.kwargs)
+      File "/home/pi/.local/lib/python3.8/site-packages/mavros_python_examples/roverHandler.py", line 87, in update_parameters_from_topic
+        self.armed = data.armed
+    AttributeError: 'NoneType' object has no attribute 'armed'
+  対策方法：
+    roverHandler.py の update_parameters_from_topic を
+  　data の型を確認してから代入する様に変更します。
+
+  対象ファイル：
+  　roverHandler.py
+  ```
+
+
+#### (3) STIL で動作確認
+
+[Details of "mavros_python_examples"](https://masoudir.github.io/mavros_tutorial/Chapter2_ArduRover_with_Python/Step2_Detials/) を参考。
+
+ターミナル１で STIL を起動し、
+
+```
+python sim_vehicle.py -v Rover --map --console
+```
+
+ターミナル２で、mavros を実行します。
+
+```
+$ roslaunch mavros apm.launch fcu_url:=udp://:14550@
+```
+
+ターミナル３で、自動走行の動作を確認します。
+
+```
+$ cd ~/GitHub/mavros_python_examples/test/
+$ python3 rover_NonGPS.py
+```
 

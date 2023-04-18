@@ -1,0 +1,13 @@
+[Unit]
+Description=ApWeb Service
+
+[Service]
+Type=simple
+ExecStart=/home/pi/start_apweb/web_server -p 80 -f 14756
+WorkingDirectory=/home/pi/start_apweb
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
