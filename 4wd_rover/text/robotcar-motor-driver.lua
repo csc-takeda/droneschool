@@ -1,9 +1,9 @@
 -- robotcar motor driver
 
-local chNum_main1 = 94  -- k_scripting1
-local chNum_main2 = 95  -- k_scripting2
-local chNum_main3 = 96  -- k_scripting3
-local chNum_main4 = 97  -- k_scripting4
+local chNum_main1 = 33  -- k_motor1
+local chNum_main2 = 34  -- k_motor2
+local chNum_main3 = 35  -- k_motor3
+local chNum_main4 = 36  -- k_motor4
 local chNum_main5 = 98  -- k_scripting5
 local chNum_main6 = 99  -- k_scripting6
 
@@ -14,23 +14,21 @@ local chNum_aux4 = 105  -- k_scripting12
 local chNum_aux5 = 106  -- k_scripting13
 local chNum_aux6 = 107  -- k_scripting14
 
-local pwm_hi = 2000
-local pwm_low = 0
 local pwm_mid = 1500
 local pwm_neutral_hi = 1550
 local pwm_neutral_low = 1450
 
 -- 正回転
-local pwm1f_scale = 0.50
-local pwm2f_scale = 0.85
+local pwm1f_scale = 0.6
+local pwm2f_scale = 0.6
 local pwm3f_scale = 1.0
-local pwm4f_scale = 0.50
+local pwm4f_scale = 0.6
 
 -- 逆回転
-local pwm1b_scale = 0.55
-local pwm2b_scale = 0.85
+local pwm1b_scale = 0.6
+local pwm2b_scale = 0.6
 local pwm3b_scale = 1.0
-local pwm4b_scale = 0.55
+local pwm4b_scale = 0.6
 
 -- 調整倍率（格納用）
 local pwm1_scale = 0
@@ -91,7 +89,7 @@ function move_upperLower(pwm_elev)
     pwm4_scale = pwm4b_scale
   end
   -- 前進/後進
-  gcs:send_text(0, "前進/後進") -- .. tostring(pwm_control(pwm1_scale, pwm_elev)) .. tostring(pwm_control(pwm3_scale, pwm_elev)))
+  gcs:send_text(0, "Forward/Reverse") -- .. tostring(pwm_control(pwm1_scale, pwm_elev)) .. tostring(pwm_control(pwm3_scale, pwm_elev)))
   SRV_Channels:set_output_pwm(chNum_main1, pwm_control(pwm1_scale, 3000-pwm_elev))
   SRV_Channels:set_output_pwm(chNum_main2, pwm_control(pwm2_scale, pwm_elev))
   SRV_Channels:set_output_pwm(chNum_main3, pwm_control(pwm3_scale, pwm_elev))
@@ -111,7 +109,7 @@ function move_rightLeft(pwm_aile)
     pwm4_scale = pwm4b_scale
   end
   -- 右進/左進
-  gcs:send_text(0, "右進/左進")
+  gcs:send_text(0, "Rightward/Leftward")
   SRV_Channels:set_output_pwm(chNum_main1, pwm_control(pwm1_scale, pwm_aile))
   SRV_Channels:set_output_pwm(chNum_main2, pwm_control(pwm2_scale, pwm_aile))
   SRV_Channels:set_output_pwm(chNum_main3, pwm_control(pwm3_scale, 3000-pwm_aile))
@@ -120,7 +118,7 @@ end
 
 function move_stop()
   -- 停止
-  -- gcs:send_text(0, "停止")
+  -- gcs:send_text(0, "Stop")
   SRV_Channels:set_output_pwm(chNum_main1, pwm_control(pwm1_scale, pwm_mid))
   SRV_Channels:set_output_pwm(chNum_main2, pwm_control(pwm2_scale, pwm_mid))
   SRV_Channels:set_output_pwm(chNum_main3, pwm_control(pwm3_scale, pwm_mid))
@@ -140,7 +138,7 @@ function switch_turn(pwm_rudd)
     pwm4_scale = pwm4b_scale
   end
   -- 回転
-  gcs:send_text(0, "回転")
+  gcs:send_text(0, "Rotate")
   SRV_Channels:set_output_pwm(chNum_main1, pwm_control(pwm1_scale, pwm_rudd))
   SRV_Channels:set_output_pwm(chNum_main2, pwm_control(pwm2_scale, pwm_rudd))
   SRV_Channels:set_output_pwm(chNum_main3, pwm_control(pwm3_scale, pwm_rudd))

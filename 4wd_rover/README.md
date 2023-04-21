@@ -21,6 +21,20 @@
 * [robotcar-motor-driver.lua](./text/robotcar-motor-driver.lua)<br>
 　⇒　<font color="red">**モーター個々に性能差があるため、ローバーが直進しません。**</font>
 
+channel_overrides.py を使って確認したところ、以下の結果がでました。
+```
+====================================
+Read channels individually:
+Ch1: 1499
+Ch2: 1499
+Ch3: 899
+Ch4: 1499
+```
+不良交換したモーターの性能が明らかに他と異なることが分かりました。<br>
+性能差が大きいので「Servo Output」で調整するのは難しいと考え、<br>
+上記数値を参考に、Luaスクリプト内にモーター毎の調整を作りこみました。<br>
+結果、プロポからのコントロールでは、ある程度安定して直進する様になりました。
+
 ### ホイールエンコーダ
 
 * [Wheel Encoders](https://ardupilot.org/rover/docs/wheel-encoder.html)<br>
@@ -29,4 +43,5 @@
 ## プログラム制御
 
 * MAVROS から Python のプログラムで制御する。<br>
-　⇒　<font color="red">**モーター動作の対応を Lua スクリプトで実装可能かが不明です。**</font>
+　⇒　<font color="red">**モーター動作の対応を Lua スクリプトで実装可能かが不明です。**</font><br>
+　　⇒　<font color="red">**ドローン開発が目標なので、以降はドローンで確認します。**</font>
