@@ -428,6 +428,26 @@ https://ardupilot.org/copter/docs/common-simple-object-avoidance.html) 参考
 
   * **360°Lidarの情報を表示。**
 
+* ROSのscan結果と比較
+
+  <img alt="proximity_ros_1" src="image/ros1.png" width="70%">
+
+  * **<font color="red">Proximityの表示と、ROSのscan結果が左右逆になっている。</font>**
+
+### ⑤ 上記不具合対策
+
+ArduPilotに以下の設定を追加する。（暫定対策）
+
+* PRX1_ORIENT = 1 (“Upside Down”)
+  * **<font color="red">実際の取り付け方と逆になります。</font>**
+    <img alt="copter_1" src="image/copter_1.jpg" width="70%">
+
+* ROSのscan結果と比較
+
+  <img alt="proximity_ros_2" src="image/ros2.png" width="70%">
+
+  * **Proximityの表示と、ROSのscan結果がほぼ一致しています。**
+
 ## リモート接続 環境構築
 
 ### ① Xrdpリモートデスクトップサーバの構築
